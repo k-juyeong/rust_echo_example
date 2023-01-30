@@ -5,6 +5,8 @@ fn main() -> io::Result<()> {
     let stdin = io::stdin();
     let mut handle = stdin.lock();
 
+    // pc random choice
+
     handle.read_line(&mut buffer)?;
 
     buffer = (buffer.trim_end()).to_string();
