@@ -1,14 +1,6 @@
 use std::io::{self, BufRead};
 use rand::Rng;
 
-// for ver.2
-// #[derive(Debug)]
-// enum Random {
-//     Rock,
-//     Paper,
-//     Scissors,
-// }
-
 fn main() -> io::Result<()> {
     let mut buffer = String::new();
     let stdin = io::stdin();
@@ -16,14 +8,6 @@ fn main() -> io::Result<()> {
 
     // pc random choice
     let _pc = rand::thread_rng().gen_range(1..=3);
-
-    // for ver.2
-    // let _pc = match n {
-    //     1 => Random::rock,
-    //     2 => Random::paper,
-    //     3 => Random::scissors,
-    //     _ => panic!("Noooo"),
-    // };
 
     handle.read_line(&mut buffer)?;
 
@@ -58,8 +42,7 @@ fn main() -> io::Result<()> {
         _ => unreachable!("Wrong"),
     }
 
-    // 2. pc is also player ver.2
-    // make it later
-
+    // 3. using socket
+    
     Ok(())
 }
