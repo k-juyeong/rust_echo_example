@@ -4,11 +4,11 @@ use std::net::UdpSocket;
 // use bytes::Buf;
 
 fn main() -> std::io::Result<()> {
-    
+    // 3. using socket
+
     // pc random choice
     let _pc = rand::thread_rng().gen_range(1..=3);
 
-    // 3. using socket
     let socket = UdpSocket::bind("127.0.0.1:3400").expect("bind error");
     let mut buf = [0; 1024];
     let mut msgbuf = &b"msg"[..];
@@ -18,7 +18,7 @@ fn main() -> std::io::Result<()> {
     let message = std::str::from_utf8(&buf[..number_of_bytes]).unwrap();
     println!("{:?}", message);
 
-    // 1 == Rock, 2 == Paper, 3 == Scissors
+    // Rock == 1, Paper == 2, Scissors == 3
     let _user: i32 = match message {
         "rock" | "Rock" => 1,
         "paper" | "Paper" => 2,
@@ -26,8 +26,8 @@ fn main() -> std::io::Result<()> {
         &_ => panic!("We're playing rock-paper-scissor right now"), 
     };
 
-    // msgbuf = &b"draw"[..];
 
+    // Result
     if _pc == _user {msgbuf = &b"draw"[..];}
     
     match (_pc, _user) {
@@ -40,6 +40,7 @@ fn main() -> std::io::Result<()> {
         _ => println!("Wrong"),
     }
 
+    // Send result to user
     socket.send_to(msgbuf, "127.0.0.1:3401").expect("send_to error");
 
     Ok(())
