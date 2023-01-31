@@ -1,6 +1,7 @@
 use std::io::{self, BufRead};
 use rand::Rng;
 use std::net::UdpSocket;
+// use bytes::Buf;
 
 fn main() -> std::io::Result<()> {
     
@@ -10,6 +11,7 @@ fn main() -> std::io::Result<()> {
     // 3. using socket
     let socket = UdpSocket::bind("127.0.0.1:3400").expect("bind error");
     let mut buf = [0; 1024];
+    let mut msgbuf = &b"msg"[..];
 
     let (number_of_bytes, addr) = socket.recv_from(&mut buf).expect("recv_from error");
 
@@ -24,17 +26,21 @@ fn main() -> std::io::Result<()> {
         &_ => panic!("We're playing rock-paper-scissor right now"), 
     };
 
-    if _pc == _user {println!("draw");}
+    // msgbuf = &b"draw"[..];
+
+    if _pc == _user {msgbuf = &b"draw"[..];}
     
     match (_pc, _user) {
-        (1, 2) => println!("user win!"),
-        (1, 3) => println!("pc win!"),
-        (2, 1) => println!("pc win!"),
-        (2, 3) => println!("user win!"),
-        (3, 1) => println!("user win!"),
-        (3, 2) => println!("pc win!"),
-        _ => unreachable!("Wrong"),
+        (1, 2) => msgbuf = &b"user win"[..],
+        (1, 3) => msgbuf = &b"pc win"[..],
+        (2, 1) => msgbuf = &b"pc win"[..],
+        (2, 3) => msgbuf = &b"user win"[..],
+        (3, 1) => msgbuf = &b"user win"[..],
+        (3, 2) => msgbuf = &b"pc win"[..],
+        _ => println!("Wrong"),
     }
+
+    socket.send_to(msgbuf, "127.0.0.1:3401").expect("send_to error");
 
     Ok(())
 }
