@@ -1,29 +1,23 @@
 use std::io::{self, BufRead};
 use rand::Rng;
+use std::net::UdpSocket;
 
-fn main() -> io::Result<()> {
-    let mut buffer = String::new();
-    let stdin = io::stdin();
-    let mut handle = stdin.lock();
-
+fn main() -> std::io::Result<()> {
+    
     // pc random choice
     let _pc = rand::thread_rng().gen_range(1..=3);
 
-    handle.read_line(&mut buffer)?;
+    // 3. using socket
+    let socket = UdpSocket::bind("127.0.0.1:3400").expect("bind error");
+    let mut buf = [0; 1024];
 
-    buffer = (buffer.trim_end()).to_string();
+    let (number_of_bytes, addr) = socket.recv_from(&mut buf).expect("recv_from error");
 
-    // 1. always pc win
-    // match buffer.as_str() {
-    //     "rock" => println!("pc: paper"),
-    //     "paper" => println!("pc: scissors"),
-    //     "scissors" => println!("pc: rock"),
-    //     _ => panic!("We're playing rock-paper-scissor right now"),
-    // }
+    let message = std::str::from_utf8(&buf[..number_of_bytes]).unwrap();
+    println!("{:?}", message);
 
-    // 2. pc is also player ver.1
     // 1 == Rock, 2 == Paper, 3 == Scissors
-    let _user: i32 = match buffer.as_str() {
+    let _user: i32 = match message {
         "rock" | "Rock" => 1,
         "paper" | "Paper" => 2,
         "scissors" | "Scissors" => 3,
@@ -42,7 +36,5 @@ fn main() -> io::Result<()> {
         _ => unreachable!("Wrong"),
     }
 
-    // 3. using socket
-    
     Ok(())
 }
