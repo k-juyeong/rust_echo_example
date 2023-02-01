@@ -29,16 +29,17 @@ fn main() -> std::io::Result<()> {
     if _pc == _user {msgbuf = &b"draw"[..];}
 
     match (_pc, _user) {
-        (1, 2) => msgbuf = &b"user win"[..],
-        (1, 3) => msgbuf = &b"pc win"[..],
-        (2, 1) => msgbuf = &b"pc win"[..],
-        (2, 3) => msgbuf = &b"user win"[..],
-        (3, 1) => msgbuf = &b"user win"[..],
-        (3, 2) => msgbuf = &b"pc win"[..],
+        (1, 2) => msgbuf = &b"PC: Rock \nWho's the winner: user win"[..],
+        (1, 3) => msgbuf = &b"PC: Rock \nWho's the winner: pc win"[..],
+        (2, 1) => msgbuf = &b"PC: Paper \nWho's the winner: pc win"[..],
+        (2, 3) => msgbuf = &b"PC: Paper \nWho's the winner: user win"[..],
+        (3, 1) => msgbuf = &b"PC: Scissors \nWho's the winner: user win"[..],
+        (3, 2) => msgbuf = &b"PC: Scissors \nWho's the winner: pc win"[..],
         _ => println!("Wrong"),
     }
 
     // Send result to user
+
     socket.send_to(msgbuf, &addr).expect("send_to error");
 
     Ok(())
