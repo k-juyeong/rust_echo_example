@@ -13,7 +13,7 @@ fn main() -> std::io::Result<()> {
 
         match line.as_str() {
             "rock" | "Rock" | "paper" | "Paper" | "scissors" | "Scissors" =>
-                print!("Who's the winner: "),
+                println!("Wait for result.."),
             _ => panic!("We're playing rock-paper-scissor now"),
         }
 
