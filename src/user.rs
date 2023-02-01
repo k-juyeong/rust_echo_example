@@ -1,9 +1,11 @@
-use core::prelude;
 use std::net::UdpSocket;
 use std::io::{self, BufRead};
+use std::env;
 
 fn main() -> std::io::Result<()> {
-    let socket = UdpSocket::bind("127.0.0.1:3401").expect("bind error");
+    // let host_arg = env::args().nth(1).unwrap();
+
+    let socket = UdpSocket::bind("0.0.0.0:0").expect("bind error");
 
     println!("Let's play rock-paper-scissor!! Your opponent is PC.");
     println!("input your choice(q for quit)");
