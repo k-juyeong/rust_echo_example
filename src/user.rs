@@ -25,7 +25,7 @@ fn main() -> std::io::Result<()> {
         socket.send_to(line.as_bytes(), "127.0.0.1:3400").expect("send_to error");
 
         let mut buf = [0; 1024];
-        let (number_of_bytes, addr) = socket.recv_from(&mut buf).expect("recv_from error");
+        let (number_of_bytes, _addr) = socket.recv_from(&mut buf).expect("recv_from error");
 
         let result = std::str::from_utf8(&buf[..number_of_bytes]).unwrap();
         println!("{}", result);

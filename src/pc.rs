@@ -1,4 +1,3 @@
-use std::io::{self, BufRead};
 use rand::Rng;
 use std::net::UdpSocket;
 
@@ -40,6 +39,6 @@ fn main() -> std::io::Result<()> {
         }
 
         // Send result to user
-        socket.send_to(msgbuf, &addr).expect("send_to error");
+        socket.send_to(msgbuf, addr).expect("send_to error");
     }
 }
