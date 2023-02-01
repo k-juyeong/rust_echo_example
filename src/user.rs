@@ -1,15 +1,20 @@
+use core::prelude;
 use std::net::UdpSocket;
 use std::io::{self, BufRead};
 
 fn main() -> std::io::Result<()> {
     let socket = UdpSocket::bind("127.0.0.1:3401").expect("bind error");
 
-    println!("Let's play rock-paper-scissor!! Your opponent is PC ");
-    println!("3, 2, 1 >> ");
+    println!("Let's play rock-paper-scissor!! Your opponent is PC.");
+    println!("input your choice(q for quit)");
 
     let stdin = io::stdin();
     for line in stdin.lock().lines() {
         let line = line.unwrap();
+
+        if &line == "Q" || &line == "q" {
+            break;
+        }
 
         match line.as_str() {
             "rock" | "Rock" | "paper" | "Paper" | "scissors" | "Scissors" =>
