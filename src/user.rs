@@ -1,9 +1,7 @@
 use std::net::UdpSocket;
 use std::io::{self, BufRead};
-use std::env;
 
 fn main() -> std::io::Result<()> {
-    // let host_arg = env::args().nth(1).unwrap();
 
     let socket = UdpSocket::bind("0.0.0.0:0").expect("bind error");
 
