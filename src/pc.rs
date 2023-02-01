@@ -1,7 +1,6 @@
 use std::io::{self, BufRead};
 use rand::Rng;
 use std::net::UdpSocket;
-// use bytes::Buf;
 
 fn main() -> std::io::Result<()> {
     // 3. using socket
@@ -23,13 +22,12 @@ fn main() -> std::io::Result<()> {
         "rock" | "Rock" => 1,
         "paper" | "Paper" => 2,
         "scissors" | "Scissors" => 3,
-        &_ => panic!("We're playing rock-paper-scissor right now"), 
+        &_ => panic!("We're playing rock-paper-scissor right now"),
     };
-
 
     // Result
     if _pc == _user {msgbuf = &b"draw"[..];}
-    
+
     match (_pc, _user) {
         (1, 2) => msgbuf = &b"user win"[..],
         (1, 3) => msgbuf = &b"pc win"[..],
@@ -41,7 +39,7 @@ fn main() -> std::io::Result<()> {
     }
 
     // Send result to user
-    socket.send_to(msgbuf, "127.0.0.1:3401").expect("send_to error");
+    socket.send_to(msgbuf, &addr).expect("send_to error");
 
     Ok(())
 }
